@@ -1,0 +1,9 @@
+string ---- API
+
+str.find(str1) 在str中查找str1
+str.find(str1, pos) 在str中从pos开始查找str1
+str.find(str1, pos, len) 在str中从pos开始查找str1,查找的长度为len
+
+str.size() 获取字符串的长度
+str.empty() 判断字符串是否为空
+str.at(pos) 获取pos位置的值
