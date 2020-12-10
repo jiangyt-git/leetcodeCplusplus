@@ -1,0 +1,8 @@
+1、排序的接口 std::sort()
+  sort(vec.begin(), vec.end(),
+		  [] (const (vec_member.type) &a,
+          const (vec_member.type) &b) {
+          return  a[0] < b[1]);
+     });
+2、初始化vector： {1,2}会生成一个新vec,  vec.push_back({1, 2}) ;
+3、vec.push_back() 、 emplace_back() 追加
