@@ -6,3 +6,8 @@
      });
 2、初始化vector： {1,2}会生成一个新vec,  vec.push_back({1, 2}) ;
 3、vec.push_back() 、 emplace_back() 追加
+4、vector 插入API: iterator insert( iterator pos, const T& value );    iterator insert( iterator pos, const T& value );
+   所以vector插入的位置pos是 vec.begin() 或者vec.begin() + n
+   示例：vec1.insert(vec1.begin(), vec2.begin(), vec2.end());
+5、算法
+   std::min() std::max()需要  #include<algorithm>
