@@ -1,0 +1,47 @@
+/*
+给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。
+
+思路：
+你可以在 O(n log n) 时间复杂度和常数级空间复杂度下->归并
+归并排序：
+取中间点是第 876 题， 去链表的第n个节点，19题
+合并 2 个有序链表是第 21 题。
+先分成两个子数字，sort，然后合并。
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* sortList(ListNode* head) {
+      if (!head) {
+        return head;
+      }
+      int length = 0;
+      while (head) {
+        length++;
+      }
+      if (length < 2) {
+        return head;
+      }
+      ListNode * midNode = findMid(head, length);
+      ListNode * l = sortlist(head);
+      ListNode * r = sortList(midNode);
+      return merge(l, r);
+    }
+    
+    LisNode midNode(ListNode * head, int length) {
+      int mid = length / 2 ;
+      ListNode *  p = head;
+      for (int i = 0; i < mid && p; i++) {
+        p = p -> next;
+      }
+    }
+};
+*/
