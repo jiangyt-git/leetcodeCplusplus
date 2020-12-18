@@ -20,28 +20,46 @@
 class Solution {
 public:
     ListNode* sortList(ListNode* head) {
-      if (!head) {
-        return head;
-      }
       int length = 0;
-      while (head) {
+	  ListNode * cur = head;
+      while (cur) {
         length++;
+		cur = cur->next;
       }
       if (length < 2) {
         return head;
       }
       ListNode * midNode = findMid(head, length);
-      ListNode * l = sortlist(head);
+	  // 小tip,因为排序时需要知道每次排序的length，或者每次直接将链表分为两个
+	  cur  = midNode->next;
+	  midNode->next = nullptr;
+	  midNode = cur;
+      ListNode * l = sortList(head);
       ListNode * r = sortList(midNode);
       return merge(l, r);
     }
-    
-    LisNode midNode(ListNode * head, int length) {
+	
+    ListNode* merge(ListNode* p, ListNode* q) {
+		if (!p) {
+			return q;
+		}
+		if (!q) {
+			return p;
+		}
+		if (p->val < q->val) {
+			p->next = merge(p->next, q);
+			return p;
+		}
+		//否则
+		q->next = merge(q->next, p);
+		return q;
+	}
+    ListNode * findMid(ListNode * head, int length) {
       int mid = length / 2 ;
       ListNode *  p = head;
-      for (int i = 0; i < mid && p; i++) {
+      for (int i = 1; i < mid && p; i++) {
         p = p -> next;
       }
+	  return p;
     }
 };
-*/
