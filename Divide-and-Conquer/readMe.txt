@@ -90,7 +90,7 @@
       }
 
       int partition(int arr[], int low, int high) {
-        //选基准, 二路快排使用双指针
+        //选基准, 二路快排使用双指针   法一
         int value = arr[low];
         int left = low;
         int right = high;
@@ -115,6 +115,37 @@
         }
         //最终left == right，也就是基准的位置	
         return left;
+      }
+      
+      每次不和基准换，而是大于基准的和小于基准的交换
+      int partition(int arr[], int low, int high) {
+        //选基准, 二路快排使用双指针   法二  better
+        int value = arr[low];
+        int left = low;
+        int right = high;
+        while (left < high) {
+          while (arr[right] > value && left < high) {
+            // 右边大于基准一直往左走
+            right--;
+          }
+          while (arr[left] <= value && left < high) {
+            // 左边小于基准时一直往右走
+            left++;
+          }
+          
+          if (left < right) {
+            //两者交换
+            swap(arr, left++, right--);
+          }
+        }
+        //最终left == right，再与基准的大小进行比较
+        if (arr[left] < arr[low]) {
+          swap(arr, left, low);
+          return left;
+        }
+        // 否则最后位置大于基准
+        swap(arr, left-1, low);
+        return left -1;
       }
    d.     
     
