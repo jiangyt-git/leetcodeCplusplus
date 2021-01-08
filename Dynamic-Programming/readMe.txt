@@ -53,43 +53,43 @@
             }
             就是从b[][]数组的右下角开始，往 左|上|左上 一直走，直到走到了最左列或者最上行。
         e） 代码
-        const int N = 1000;
-        int b[N][N];
-        int c[N][N];
-        // 求最长子序列的矩阵
-        void LSCL(char[] s1, char[] s2, int len1, int len2) {
-            for (int i = 1; i <= len1; i++) {
-                for (int j = 1; j <= len2; j++) {
-                    if (s1[i-1] == s2[j-1]) {
-                        //相等
-                        c[i][j] = c[i-1][j-1] + 1;
-                        b[i][j] = 1;
-                    } else if (c[i][j-1] >= c[i-1][j]) {
-                        c[i][j] = c[i][j-1];
-                        b[i][j] = 2;
-                    } else {
-                        c[i][j] = c[i-1][j];
-                        b[i][j] = 3;
+            const int N = 1000;
+            int b[N][N];
+            int c[N][N];
+            // 求最长子序列的矩阵
+            void LSCL(char[] s1, char[] s2, int len1, int len2) {
+                for (int i = 1; i <= len1; i++) {
+                    for (int j = 1; j <= len2; j++) {
+                        if (s1[i-1] == s2[j-1]) {
+                            //相等
+                            c[i][j] = c[i-1][j-1] + 1;
+                            b[i][j] = 1;
+                        } else if (c[i][j-1] >= c[i-1][j]) {
+                            c[i][j] = c[i][j-1];
+                            b[i][j] = 2;
+                        } else {
+                            c[i][j] = c[i-1][j];
+                            b[i][j] = 3;
+                        }
                     }
                 }
             }
-        }
-        // 计算完成之后，输出最长子序列的矩阵
-        void print(int m, int n) {
-            if (m == 0 || n == 0) {
-                // 遍历到了第一列或者第一行
-                return ;
-            }
-            if (b[m][n] == 1) {
-                //递归b[m-1][n-1]
-                print(b[m-1][n-1]);
-                std::cout<<s[m-1];
+            // 计算完成之后，输出最长子序列的矩阵
+            void print(int m, int n) {
+                if (m == 0 || n == 0) {
+                    // 遍历到了第一列或者第一行
+                    return ;
+                }
+                if (b[m][n] == 1) {
+                    //递归b[m-1][n-1]
+                    print(b[m-1][n-1]);
+                    std::cout<<s[m-1];
 
-            } else if(b[m][n] == 2) {
-                //递归b[m][n-1]
-                print(b[m][n-1]);
-            } else {
-                //递归b[m-1][n]
-                print(b[m-1][n]);
+                } else if(b[m][n] == 2) {
+                    //递归b[m][n-1]
+                    print(b[m][n-1]);
+                } else {
+                    //递归b[m-1][n]
+                    print(b[m-1][n]);
+                }
             }
-        }
