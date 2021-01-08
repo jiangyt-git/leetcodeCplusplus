@@ -73,4 +73,48 @@
       分解：从序列中选取一个作为基准，然后将序列分为两个子序列，左边的比基准小，右边的比基准大
       治理：对两个子序列进行快排
       合并：将两个子序列合在一起组成最终序列
-    注意： 原地排序，分解难，合并容易  
+    注意： 
+      快排属于原地排序，分解难，合并容易。
+      选取基准最重要（第一个、最后一个、中间位置），选错的时候，规模会和冒泡排序一样。代码以选取第一个为例。
+      分解左右子序列时，可以使用双指针法，一个向左走，一个向右走，根据逻辑不停交换，直到相遇为止。
+    代码：
+      void QuickSort(int arr[], int low, int high) {
+        if (low >= high || arr == nullptr) {
+          return;
+        }
+        // 快排切分函数最重要,每次mid的位置最先确定
+        int mid = partition(arr, low, high);
+        Quicksort(arr, low, mid-1);
+        QuickSort(arr, mid+1, high);
+        // 合并无需做任何事，因为原地快排，直接连接就是有序
+      }
+
+      int partition(int arr[], int low, int high) {
+        //选基准, 二路快排使用双指针
+        int value = arr[low];
+        int left = low;
+        int right = high;
+        while (left < high) {
+          // 每次都是基准在和 left|right之间 转换
+          while (arr[right] > value && left < high) {
+            // 右边大于基准一直往左走
+            right--;
+          }
+          if (left < right) {
+            //与基准交换，基准到right
+            swap(arr, left++, right);
+          }
+          while (arr[left] <= value && left < high) {
+            // 左边小于基准时一直往右走
+            left++;
+          }
+          if (left < right) {
+            //与基准交换，基准到left了
+            swap(arr, left, right--);
+          }
+        }
+        //最终left == right，也就是基准的位置	
+        return left;
+      }
+   d.     
+    
