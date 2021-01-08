@@ -25,7 +25,7 @@
           return -1;
         }
       }
-      以上为非递归法，如果使用递归法，则需要额外的空间，因为，递归时会将调用过程压入栈中。比如，问题原规模为n,第一次分为 2个n/2规模的问题， 但每次只执行其中之一，知道问题的规模到1，即
+      但如果使用递归法，则需要额外的空间，因为递归时会将调用过程压入栈中。比如，问题原规模为n,第一次分为 2个n/2规模的问题，但每次只执行其中之一，直到问题的规模为1，即
         n/ 2^x = 1   解得x = logn
         即递归版二分法空间复杂度为 O(longn)
   b. 归并排序
@@ -33,6 +33,39 @@
       分解： 将序列分成两个规模相似的子序列
       治理： 对每个子问题进行合并排序
       合并： 将两个有序子序列合并起来
-    注意： 需要辅助数组
+    注意： 归并时需要辅助数组
     代码： 
+      void mergeSort(int arr[], int low, int high) {
+        if (low >= high) {
+          return;
+        }
+        int mid = low + (high - low) / 2;
+        mergeSort(arr, low, mid);
+        mergeSort(arr, mid+1, high);
+        merge(arr, low, mid, high);
+      }
+      void merge(int arr[], int low, int mid, int high) {
+        int * tmp = new int[high-low+1];
+        int i = low;
+        int j = mid + 1;
+        int k = 0;
+        while (i <= mid && j <= high) {
+          if (arr[i] <= arr[j]) {
+            tmp[k++] = arr[i++];
+          } else {
+            tmp[k++] = arr[j++];
+          }
+        }
+        while (i <= mid) {
+          tmp[k++] = arr[i++];
+        }
+        while (j <= high) {
+          tmp[k++] = arr[j++];
+        }
+        // 将排好序的数组复制到arr中
+        for (i = low, k = 0; i <= high; i++) {
+          arr[i] = tmp[k++];
+        }
+        delete tmp[];
+      }
       
