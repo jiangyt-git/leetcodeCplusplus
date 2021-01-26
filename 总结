@@ -11,3 +11,69 @@
     快慢指针，一个走一步，一个走两步，快的到终点时，慢的到中点。
   4.环的倒数第k个几点
     快慢指针，一个先走k步，然后两个一起走，快的到终点时，慢的到环的倒数第k个几点。
+二、
+重点：
+  二分框架：
+    符合在有序数组中搜索给定的某个目标值的索引，即连续的空间线性搜索，这就是二分查找可以发挥作用的标志。
+    for (int i = 0; i < n; i++)
+      if (isOK(i))
+          return ans;
+          
+    模板
+      int binary_search(int[] nums, int target) {
+      int left = 0, right = nums.length - 1; 
+      while(left <= right) {
+          int mid = left + (right - left) / 2;
+          if (nums[mid] < target) {
+              left = mid + 1;
+          } else if (nums[mid] > target) {
+              right = mid - 1; 
+          } else if(nums[mid] == target) {
+              // 直接返回
+              return mid;
+          }
+      }
+      // 直接返回
+      return -1;
+    }
+
+    int left_bound(int[] nums, int target) {
+        int left = 0, right = nums.length - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] < target) {
+                left = mid + 1;
+            } else if (nums[mid] > target) {
+                right = mid - 1;
+            } else if (nums[mid] == target) {
+                // 别返回，锁定左侧边界
+                right = mid - 1;
+            }
+        }
+        // 最后要检查 left 越界的情况
+        if (left >= nums.length || nums[left] != target)
+            return -1;
+        return left;
+    }
+
+
+    int right_bound(int[] nums, int target) {
+        int left = 0, right = nums.length - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] < target) {
+                left = mid + 1;
+            } else if (nums[mid] > target) {
+                right = mid - 1;
+            } else if (nums[mid] == target) {
+                // 别返回，锁定右侧边界
+                left = mid + 1;
+            }
+        }
+        // 最后要检查 right 越界的情况
+        if (right < 0 || nums[right] != target)
+            return -1;
+        return right;
+    }
+
+    
